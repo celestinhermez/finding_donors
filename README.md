@@ -1,21 +1,21 @@
-# Finding Donors for Charity ML
+# Finding Donors for CharityML
 
 ## Introduction
 
 This project shows how we can use supervised learning to solve a business problem. Charity ML is 
 an imaginary non-profit which survives from donations. In particular, past experience has shown
 that people making more than $50,000 a year were much more likely to donate. As a result, our goal
-is to use publicly available data (from the Census information) to build a model to predict someone's
-income, thus allowing Charity ML to focus its outreach efforts to people most likely to donate.
+is to use publicly available data (from Census information) to build a model to predict someone's
+income, thus allowing _CharityML_ to focus its outreach efforts on people most likely to donate.
 
  The dataset for this project originates from the [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/Census+Income). 
- The datset was donated by Ron Kohavi and Barry Becker, after being published in the article 
+ It was donated by Ron Kohavi and Barry Becker, after being published in the article 
  _"Scaling Up the Accuracy of Naive-Bayes Classifiers: A Decision-Tree Hybrid"_. 
  We can find the article by Ron Kohavi [online](https://www.aaai.org/Papers/KDD/1996/KDD96-033.pdf). 
  The data we investigate here consists of small changes to the original dataset, 
  such as removing the `'fnlwgt'` feature and records with missing or ill-formatted entries.
  
- Our approach will consist in building several models on data from the 1994 US census. We will then
+ Our approach will consist in building several models on this data. We will then
  select the best candidate algorithm and tune it further. We use a supervised learning approach since
  we have a target variable (binary, whether an individual makes more than $50,000) which we want to model.
  
@@ -39,7 +39,7 @@ income, thus allowing Charity ML to focus its outreach efforts to people most li
  
  ### Preprocessing
  
- Given its source, our dataset is already clean, but we do not to apply some preprocessing:
+ Given its source, our dataset is already clean, but we do need to perform some preprocessing:
  * transform skewed features by applying a logarithmic transformation
  * normalize features through a `MinMaxScaler`
  * encode categorical features through one-hot encoding
@@ -51,14 +51,14 @@ income, thus allowing Charity ML to focus its outreach efforts to people most li
  * a naive predictor, that always predicts an individual makes more than \$50,000. This serves
  as a benchmark the other model have to improve upon
  * Naive Bayes
- * Adaboost
+ * AdaBoost
  * Support Vector Machines
  
  In order to choose between these three models, we rely both on accuracy and F<sub>0.5</sub> score 
  to have a good balance between precision and recall (placing a bit more emphasis on 
- precision). Based on these criteria, AdaBoost combines high performance with fast training. We
+ precision thanks to the beta parameter). Based on these criteria, AdaBoost combines high performance with fast training. We
  further tune its hyperparameters through grid search:
- * number of estimators (`n_estimators`): 10, 25, 50
+ * number of weak learners used (`n_estimators`): 10, 25, 50
  * learning rate (`learning_rate`): 0.5, 1, 2
  * maximum depth of the individual decision trees (`base_estimator__max_depth`): 1, 5, 10
  
